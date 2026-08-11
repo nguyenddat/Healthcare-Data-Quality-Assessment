@@ -1,0 +1,68 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# ALL DATA FILES
+# Never upload data to GitHub
+# =========================
+*.csv
+*.parquet
+*.xlsx
+*.xls
+*.json
+*.jsonl
+*.feather
+*.pkl
+*.pickle
+
+# =========================
+# Data directories
+# =========================
+data/
+raw_data/
+processed_data/
+generated_data/data/
+generated_data/output/
+
+# =========================
+# Temporary / output
+# =========================
+output/
+outputs/
+tmp/
+temp/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+
+# =========================
+# IDE
+# =========================
+.vscode/
+
+# =========================
+# Environment / secrets
+# =========================
+.env
+.env.*
+*.pem
+*.key
+
+# =========================
+# Logs
+# =========================
+*.log
