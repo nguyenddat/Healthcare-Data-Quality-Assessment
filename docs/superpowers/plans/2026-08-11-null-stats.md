@@ -389,13 +389,14 @@ Run:
 ```bash
 conda activate lc_openmetadata && python -c "
 from app.main import app
-paths = {r.path for r in app.routes}
+paths = set(app.openapi()['paths'].keys())
 assert '/completeness/overview' in paths
 assert '/completeness/null-stats' in paths
 print('ok')
 "
 ```
 Expected: `ok`
+(Ghi chú: `app.routes` trên FastAPI bản này bọc router qua `_IncludedRouter`, không có `.path` trực tiếp — dùng `app.openapi()['paths']` để verify thay vì duyệt `app.routes`.)
 
 - [ ] **Step 4: Commit**
 
