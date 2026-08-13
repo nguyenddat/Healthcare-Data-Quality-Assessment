@@ -132,25 +132,6 @@ services:
       - ingestion-volume-dags:/opt/airflow/dags
       - ingestion-volume-tmp:/tmp
 
-  synthetic-his:
-    build:
-      context: .
-    container_name: synthetic-his
-    environment:
-      DB_URL: postgresql://postgres:password@postgresql:5432/healthcare_sim
-    depends_on:
-      postgresql:
-        condition: service_healthy
-    command: ["python", "run.py"]
-    networks:
-      - app_net
-    healthcheck:
-      test: [ "CMD-SHELL", "pgrep -f run.py || exit 1" ]
-      interval: 15s
-      timeout: 5s
-      retries: 3
-      start_period: 10s
-
 networks:
   app_net:
     ipam:
