@@ -1,13 +1,13 @@
-from fastapi import APIRouter, File, UploadFile
+import fastapi  # noqa: EXE002
 from fastapi.responses import FileResponse
 
 from ..services.null_stats import write_null_stats_excel
 
-router = APIRouter()
+router = fastapi.APIRouter()
 
 
 @router.post("/completeness/null-stats")
-async def post_null_stats(file: UploadFile = File(...)):
+async def post_null_stats(file: fastapi.UploadFile = fastapi.File(...)):  # noqa: B008
     contents = await file.read()
     path = write_null_stats_excel(contents)
     return FileResponse(

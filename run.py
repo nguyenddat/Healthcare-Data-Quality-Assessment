@@ -1,23 +1,23 @@
+import os  # noqa: EXE002
 import time
-import os
+
 from sqlalchemy import create_engine
 
 from generated_data.context import DataContext
-
-from generated_data.gen_tb_dm_benhvien import generate_tb_dm_benhvien
-from generated_data.gen_tb_department import generate_tb_department
-from generated_data.gen_tb_room import generate_tb_room
 from generated_data.gen_chamber import generate_tb_chamber
 from generated_data.gen_nhanvien import generate_tb_nhanvien
+from generated_data.gen_tb_department import generate_tb_department
+from generated_data.gen_tb_dm_benhvien import generate_tb_dm_benhvien
 from generated_data.gen_tb_dm_icd10 import generate_tb_dm_icd10
 from generated_data.gen_tb_dm_servicesubgroup import generate_tb_dm_servicesubgroup
-from generated_data.gen_tb_service import generate_tb_service
-from generated_data.gen_tb_medicalrecord import generate_tb_medicalrecord
-from generated_data.gen_tb_treatment import generate_tb_treatment
-from generated_data.gen_tb_medrec_kb import generate_tb_medicalrecord_khambenh
-from generated_data.gen_tb_servicedata_pttt import generate_tb_servicedata_pttt
 from generated_data.gen_tb_meddocument import generate_tb_mediboxdocument
+from generated_data.gen_tb_medicalrecord import generate_tb_medicalrecord
+from generated_data.gen_tb_medrec_kb import generate_tb_medicalrecord_khambenh
 from generated_data.gen_tb_nhanvienactivity import generate_tb_nhanvienactivity
+from generated_data.gen_tb_room import generate_tb_room
+from generated_data.gen_tb_service import generate_tb_service
+from generated_data.gen_tb_servicedata_pttt import generate_tb_servicedata_pttt
+from generated_data.gen_tb_treatment import generate_tb_treatment
 
 # ---- DB CONFIG (edit to match your Postgres) ----
 DB_URL = os.environ.get(
