@@ -101,7 +101,7 @@ services:
       interval: 15s
       timeout: 10s
       retries: 10
-      start_period: 60s # Thêm thông số này để tránh container restart sai lầm khi đang boot
+      start_period: 300s # Thêm thông số này để tránh container restart sai lầm khi đang boot
 
   ingestion:
     container_name: openmetadata_ingestion
