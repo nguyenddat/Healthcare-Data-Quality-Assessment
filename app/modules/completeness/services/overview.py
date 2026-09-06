@@ -20,7 +20,6 @@ DU_LIEU_TAG_NAME = {
     DuLieu.FULL_DATA: "FullData",
 }
 
-
 def classify_du_lieu(so_dong: int) -> DuLieu:
     if so_dong == 0:
         return DuLieu.NO_DATA
@@ -29,14 +28,19 @@ def classify_du_lieu(so_dong: int) -> DuLieu:
     return DuLieu.FULL_DATA
 
 
-def get_table_overview() -> list[TableOverviewInfo]:
+def get_table_overview(schemas: list[str]) -> list[TableOverviewInfo]:
     client = get_metadata_client()
     ensure_data_completeness_tags(client)
 
+    selected_schemas = set(schemas)
     rows = []
     for table in Tables.list_all(filters={"service": config.SERVICE_NAME}):
         if table.database.name != config.DATABASE_NAME:
             continue
+
+        if table.databaseSchema.name not in selected_schemas:
+            continue
+
         fqn = table.fullyQualifiedName.root
         detail = client.get_latest_table_profile(fqn)
         row_count = detail.profile.rowCount if detail.profile else None
@@ -59,8 +63,8 @@ def get_table_overview() -> list[TableOverviewInfo]:
     return rows
 
 
-def write_overview_excel() -> bytes:
-    rows = get_table_overview()
+def write_overview_excel(schemas: list[str]) -> bytes:
+    rows = get_table_overview(schemas)
     wb = build_overview_workbook(rows)
     buffer = BytesIO()
     wb.save(buffer)
