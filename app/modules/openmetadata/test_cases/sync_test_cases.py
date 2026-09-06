@@ -1,26 +1,18 @@
+from collections import defaultdict
+
 from tqdm import tqdm
 
+from metadata.utils.entity_link import get_entity_link
 from metadata.generated.schema.entity.data.table import Table
 from metadata.generated.schema.tests.testCase import TestCase
 from metadata.generated.schema.api.tests.createLogicalTestCases import CreateLogicalTestCases
 
-from metadata.utils.entity_link import get_entity_link
 
 from ..client import get_metadata_client
-from .specs.completeness_dirty_values import build_dirty_value_test_specs
-from .specs.completeness_constant_values import build_constant_value_test_specs
+from .specs.base import TestSpec
 
-spec_builders = [
-    build_dirty_value_test_specs,
-    build_constant_value_test_specs
-]
-
-def sync_test_cases(tables) -> list[str]:
+def sync_test_cases(specs: list[TestSpec]) -> list[str]:
     client = get_metadata_client()
-
-    specs = []
-    for builder in spec_builders:
-        specs.extend(builder(tables))
 
     existing_test_cases = client.list_all_entities(entity=TestCase, limit=1000)
     existing_fqns = {test_case.fullyQualifiedName.root for test_case in existing_test_cases}
